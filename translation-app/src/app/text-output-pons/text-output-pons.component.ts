@@ -12,6 +12,7 @@ export class TextOutputPonsComponent implements OnInit {
 
     ngOnInit() {
         this.translateService.currentText.subscribe(text => this.text = text);
+        console.log(this.text);
     }
 
 }
