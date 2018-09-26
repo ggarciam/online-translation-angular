@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from "../translate.service";
 
 @Component({
   selector: 'app-text-output-g-translate',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./text-output-g-translate.component.scss']
 })
 export class TextOutputGTranslateComponent implements OnInit {
-
-  constructor() { }
+  text = '';
+  constructor(private translateService: TranslateService) { }
 
   ngOnInit() {
+      this.translateService.currentText.subscribe(text => this.text = text);
   }
 
 }

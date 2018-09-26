@@ -10,6 +10,7 @@ import { TextOutputPonsComponent } from './text-output-pons/text-output-pons.com
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
