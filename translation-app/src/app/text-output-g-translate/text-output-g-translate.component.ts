@@ -11,7 +11,7 @@ export class TextOutputGTranslateComponent implements OnInit {
   constructor(private translateService: TranslateService) { }
 
   ngOnInit() {
-      this.translateService.currentText.subscribe(text => this.text = text);
+      this.translateService.currentTextGoogle.subscribe(text => this.text = text);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { G_TRANSLATE_URL, LANGUAGES } from "../global";
+import { LANGUAGES } from "../global";
 import { TranslateService } from "../translate.service";
+import {TranslationClass} from "../translation-class";
 
 @Component({
   selector: 'app-text-input',
@@ -8,11 +9,13 @@ import { TranslateService } from "../translate.service";
   styleUrls: ['./text-input.component.scss']
 })
 export class TextInputComponent implements OnInit {
-  text:string = '';
-  languages = LANGUAGES;
+  text:string           = '';
+  languages             = LANGUAGES;
+
+
   sourceSelected:string = 'en';
   targetSelected:string = 'es';
-  translatedText:string = '';
+  translatedText:TranslationClass = new TranslationClass();
 
   constructor(private translateService: TranslateService) { }
 
@@ -20,20 +23,19 @@ export class TextInputComponent implements OnInit {
   }
 
   getTranslation(): void {
-      let urls = [
-          {
-            service: 'google',
-            url: G_TRANSLATE_URL + '?client=gtx&sl=' + this.sourceSelected + '&tl=' + this.targetSelected + '&dt=t&q=' + encodeURI(this.text)
-          },
-          {
-            service: 'yandex',
-            url: ''
-          }
-      ];
 
+      let options = '';
+
+      options = '?client=gtx&sl=' + this.sourceSelected + '&tl=' + this.targetSelected + '&dt=t&q=' + encodeURI(this.text);
       this.translateService.getGoogleTranslation(
-          this.translateService.getServiceURL(urls, 'google')
+          this.translateService.getAPIInfo('google', options)
       )
-          .subscribe(text => this.translatedText = text[0][0][0]);
+          .subscribe(text => this.translatedText.translatedGoogle = text[0][0][0]);
+
+      options = '&text=' + encodeURI(this.text) + '&lang=' + this.sourceSelected + '-' + this.targetSelected;
+      this.translateService.getYandexTranslation(
+          this.translateService.getAPIInfo('yandex', options)
+      )
+          .subscribe(text => this.translatedText.translatedYandex = text);
   }
 }

@@ -11,7 +11,7 @@ export class TextOutputYandexComponent implements OnInit {
     constructor(private translateService: TranslateService) { }
 
     ngOnInit() {
-        this.translateService.currentText.subscribe(text => this.text = text);
+        this.translateService.currentTextYandex.subscribe(text => this.text = text);
         console.log(this.text);
     }
 
