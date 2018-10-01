@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { HttpClientModule } from "@angular/common/http";
+import { TextOutputYandexComponent } from "./text-output-yandex/text-output-yandex.component";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HttpClientModule } from "@angular/common/http";
     TextInputComponent,
     TextOutputGTranslateComponent,
     TextOutputPonsComponent,
+    TextOutputYandexComponent,
     ToolbarComponent
   ],
   imports: [

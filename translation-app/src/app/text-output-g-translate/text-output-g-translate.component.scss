@@ -1,9 +1,14 @@
-.mat-form-field {
-  margin: 1rem;
-  width: 600px;
-}
+.translation-result {
+  width: 100%;
 
-textarea {
-  width: 600px;
-  height: 150px;
+  &__title {
+
+  }
+
+  &__text {
+    background-color: #eeeeee;
+    min-height: 200px;
+    display: block;
+    padding: 5px;
+  }
 }

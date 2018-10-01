@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextOutputPonsComponent } from './text-output-pons.component';
+import { TextOutputYandexComponent } from './text-output-yandex.component';
 
 describe('TextOutputYandexComponent', () => {
-  let component: TextOutputPonsComponent;
-  let fixture: ComponentFixture<TextOutputPonsComponent>;
+  let component: TextOutputYandexComponent;
+  let fixture: ComponentFixture<TextOutputYandexComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextOutputPonsComponent ]
+      declarations: [ TextOutputYandexComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TextOutputPonsComponent);
+    fixture = TestBed.createComponent(TextOutputYandexComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

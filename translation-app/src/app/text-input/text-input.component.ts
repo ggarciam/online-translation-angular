@@ -20,8 +20,20 @@ export class TextInputComponent implements OnInit {
   }
 
   getTranslation(): void {
-      let url = G_TRANSLATE_URL + '?client=gtx&sl=' + this.sourceSelected + '&tl=' + this.targetSelected + '&dt=t&q=' + encodeURI(this.text);
-      this.translateService.getTranslation(url)
+      let urls = [
+          {
+            service: 'google',
+            url: G_TRANSLATE_URL + '?client=gtx&sl=' + this.sourceSelected + '&tl=' + this.targetSelected + '&dt=t&q=' + encodeURI(this.text)
+          },
+          {
+            service: 'yandex',
+            url: ''
+          }
+      ];
+
+      this.translateService.getGoogleTranslation(
+          this.translateService.getServiceURL(urls, 'google')
+      )
           .subscribe(text => this.translatedText = text[0][0][0]);
   }
 }

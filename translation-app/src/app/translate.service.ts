@@ -20,7 +20,24 @@ export class TranslateService {
 
     }
 
-    getTranslation(url: string): Observable<any> {
+    getServiceURL(urls:any, service: string): string {
+
+        return urls.filter(url => url.service === service)[0].url;
+    }
+
+    getGoogleTranslation(url: string): Observable<any> {
+        return this._http
+            .get<any>(url)
+            .pipe(
+                tap(text => {
+                    console.log('fetched translation ' + text[0][0][0]);
+                    this.textResult.next(text[0][0][0]);
+                }),
+                catchError(this.handleError('getTranslation', []))
+            );
+    }
+
+    getYandexTranslation(url: string): Observable<any> {
         return this._http
             .get<any>(url)
             .pipe(
