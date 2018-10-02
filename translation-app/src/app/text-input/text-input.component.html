@@ -18,9 +18,9 @@
   <mat-form-field class="example-full-width">
     <textarea matInput placeholder="Introduce text to translate"
               [(ngModel)]="text" name="text"
-              (change)="getTranslation()"></textarea>
+              (change)="triggerTranslation()"></textarea>
   </mat-form-field>
 
   <button mat-raised-button color="primary"
-          (click)="getTranslation()">Translate</button>
+          (click)="triggerTranslation()">Translate</button>
 </form>

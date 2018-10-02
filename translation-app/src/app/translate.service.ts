@@ -30,28 +30,58 @@ export class TranslateService {
         return urls.filter(url => url.service === service)[0].url;
     }
 
-    getAPIInfo(service: string, options: string): string {
-        return this.t_services.filter(s => s.name === service)[0].url_final + options;
+    getAPIInfo(service: string): string {
+        return this.t_services.filter(s => s.name === service)[0].url_final;
     }
 
-    getGoogleTranslation(url: string): Observable<any> {
+    getTranslation(url: string, options: any, headers: HttpHeaders, callback: any): Observable<any> {
+
         return this._http
-            .get<any>(url)
+            .get<any>(url, {
+                headers: headers,
+                params: options
+            })
             .pipe(
-                tap(text => {
-                    console.log('fetched translation ' + text[0][0][0]);
-                    this.textResultGoogle.next(text[0][0][0]);
+                tap(() => {
+                    callback();
                 }),
                 catchError(this.handleError('getTranslation', []))
             );
     }
 
-    getYandexTranslation(url: string): Observable<any> {
+    getGoogleTranslation(url: string, options: any): Observable<any> {
+        let headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/json');
+
         return this._http
-            .get<any>(url)
+            .get<any>(url, {
+                headers: headers,
+                params: options
+            })
             .pipe(
                 tap(text => {
-                    console.log('fetched translation ' + text.text);
+                    let textOutput = text[0][0][0];
+                    if(text[0].length > 1) {
+                        textOutput = '';
+                        text[0].forEach( t => textOutput += t[0] );
+                    }
+                    this.textResultGoogle.next(textOutput);
+                }),
+                catchError(this.handleError('getTranslation', []))
+            );
+    }
+
+    getYandexTranslation(url: string, options: any): Observable<any> {
+        let headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http
+            .get<any>(url, {
+                headers: headers,
+                params: options
+            })
+            .pipe(
+                tap(text => {
                     this.textResultYandex.next(text.text);
                 }),
                 catchError(this.handleError('getTranslation', []))

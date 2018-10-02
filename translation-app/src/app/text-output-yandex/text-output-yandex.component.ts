@@ -15,4 +15,17 @@ export class TextOutputYandexComponent implements OnInit {
         console.log(this.text);
     }
 
+    translateText(e: any) {
+        let data;
+
+        data = {
+            text: e.text,
+            lang: e.source + '-' + e.target
+        };
+
+        this.translateService.getYandexTranslation(
+            this.translateService.getAPIInfo('yandex'), data)
+            .subscribe(text => this.text = text.text[0]);
+    }
+
 }
