@@ -12,20 +12,28 @@ export class TextOutputYandexComponent implements OnInit {
 
     ngOnInit() {
         this.translateService.currentTextYandex.subscribe(text => this.text = text);
-        console.log(this.text);
     }
 
     translateText(e: any) {
         let data;
 
         data = {
-            text: e.text,
-            lang: e.source + '-' + e.target
+            params: {
+                text: e.text,
+                lang: e.source + '-' + e.target
+            },
+            values: {
+                service: 'yandex',
+                varName: 'sourceYandex',
+                callBack: this.parseResult
+            },
         };
 
-        this.translateService.getYandexTranslation(
-            this.translateService.getAPIInfo('yandex'), data)
-            .subscribe(text => this.text = text.text[0]);
+        this.translateService.getTranslation(data).subscribe();
+    }
+
+    parseResult(text:any): any {
+        return text.text;
     }
 
 }

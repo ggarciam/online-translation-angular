@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from "../translate.service";
 
 @Component({
@@ -18,14 +18,28 @@ export class TextOutputGTranslateComponent implements OnInit {
       let data;
 
       data = {
-          client: 'gtx',
-          sl: e.source,
-          tl: e.target,
-          dt: 't',
-          q: e.text
+          params: {
+              client: 'gtx',
+              sl: e.source,
+              tl: e.target,
+              dt: 't',
+              q: e.text
+          },
+          values: {
+              service: 'google',
+              varName: 'sourceGoogle',
+              callBack: this.parseResult
+          },
       };
-      this.translateService.getGoogleTranslation(
-          this.translateService.getAPIInfo('google'), data)
-          .subscribe(text => this.text = text[0][0][0]);
+      this.translateService.getTranslation(data).subscribe();
   }
+
+    parseResult(text:any[]): any {
+        let textOutput = text[0][0][0];
+        if(text[0].length > 1) {
+            textOutput = '';
+            text[0].forEach( t => textOutput += t[0] );
+        }
+        return textOutput;
+    }
 }
